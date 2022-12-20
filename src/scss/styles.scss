@@ -1,0 +1,40 @@
+@import "config.scss";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    background-color: $light-color;
+    color: $dark-color;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+    min-width: 200px;
+    height: 60%;
+    min-height: 180px;
+    background-color: pink;
+}
+
+.logo-container {
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
