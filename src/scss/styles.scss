@@ -9,7 +9,8 @@
 :root {
     background-color: $light-color;
     color: $dark-color;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: $font;
+    font-size: 14px;
 }
 
 body {
@@ -29,12 +30,55 @@ body {
     min-width: 200px;
     height: 60%;
     min-height: 180px;
-    background-color: pink;
+    // background-color: pink;
 }
 
 .logo-container {
-    background-color: greenyellow;
+    // background-color: greenyellow;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .heading {
+        margin-top: 5px;
+        color: $blue;
+        font-family: $font-logo;
+        font-weight: 700;
+        font-size: 2.4em;
+    }
+}
+
+#form {
+    // background-color: lightcoral;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 500px;
+
+    .search-bar-label {
+        font-weight: 400;
+        font-size: 0.9em;
+    }
+
+    .search-bar {
+        padding: 10px;
+        font-family: inherit;
+        background-color: $text-input-color;
+        color: $dark-color;
+        border: none;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+    .submit-btn {
+        width: 100px;
+        background-color: $blue;
+        color: $light-color;
+        font-family: inherit;
+        margin: 20px auto 0 auto;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
 }
