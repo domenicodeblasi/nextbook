@@ -10,16 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
 </head>
 <body>
-    
-    <div class="container">
-        <div class="logo-container">
-            <h1 class="heading">nextbook</h1>
+    <section id="home">
+        <div class="container">
+            <div class="logo-container">
+                <h1 class="heading">nextbook</h1>
+            </div>
+            <form id="form">
+                <label class="search-bar-label" for="search">Search by category or subject</label>
+                <input class="search-bar" type="text" name="search" placeholder="Fantasy" required>
+                <button class="submit-btn" type="submit">Search</button>
+            </form>
         </div>
-        <form id="form">
-            <label class="search-bar-label" for="search">Search by category or subject</label>
-            <input class="search-bar" type="text" name="search" placeholder="Fantasy">
-            <button class="submit-btn" type="submit">Search</button>
-        </form>
-    </div>
+    </section>
+    <section id="search-results-section">
+        <button>X</button>
+    </section>
+    <section id="book-section"></section>
 </body>
 </html>

@@ -11,7 +11,17 @@ const placeholderArray = [
     "Swords",
     "Humour",
     "Trains",
-    "Super Mario"
+    "Super Mario",
+    "Cartoons and Comics",
+    "Pirates",
+    "Venice",
+    "Travel",
+    "Classic Literature",
+    "Male Friendship",
+    "Tiger",
+    "Religion",
+    "Young Adult",
+    "Wizards"
 ];
 
 function randomPlaceholderIndex() {

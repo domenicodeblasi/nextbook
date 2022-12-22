@@ -1,25 +1,16 @@
-import setFavicon from "./setFavicon.js";
-setFavicon();
-
 import "../scss/styles.scss";
 import getLogo from "../imgs/logo/logo.js";
 import {placeholderArray, randomPlaceholderIndex} from "./placeholderArray.js";
 
 // DOM elements
-const container = document.querySelector(".container");
 const logoContainer = document.querySelector(".logo-container");
-const heading = document.querySelector(".heading");
 const form = document.querySelector("#form");
-const searchBarLabel = document.querySelector(".search-bar-label");
 const searchBar = document.querySelector(".search-bar");
-const submitBtn = document.querySelector(".submitBtn");
+const searchResultsCloseBtn = document.querySelector("#search-results-section > button");
+const windowHeight = document.documentElement.clientHeight;
 
 // colors
-const lightColor = "rgb(240, 240, 240)";
-const darkColor = "";
 const blue = "rgb(69, 68, 151)";
-const lightPink = "rgb(226, 121, 121)";
-const darkPink = "rgb(164, 102, 102)";
 
 logoContainer.prepend(getLogo());
 
@@ -36,3 +27,43 @@ function changePlaceholder() {
 searchBar.placeholder = `${placeholderArray[randomPlaceholderIndex()]}`;
 }
 setInterval(changePlaceholder, 3000);
+
+// fetch subject api in the "submit" event listener
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    scrollToSearchResults();
+    subjectRequest();
+    // displayResults();
+
+})
+
+function scrollToSearchResults() {
+    window.scrollTo({
+        top: windowHeight,
+        behavior: "smooth"
+    });
+}
+
+async function subjectRequest() {
+    function getUrlFromInputValue() {
+        const inputValue = searchBar.value.toLowerCase();
+        const array = inputValue.split(" ");
+        const urlFriendlyString = array.join("_");
+        return urlFriendlyString;
+    }
+    const path = await getUrlFromInputValue();
+    const URL = `https://openlibrary.org/subjects/${path}.json`;
+
+    const response = await fetch(URL);
+    const json = await response.json();
+    console.log(json);
+}
+
+// click event listener to the close btn to return home
+searchResultsCloseBtn.addEventListener("click", (e) => {
+    searchBar.value = "";
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+})
