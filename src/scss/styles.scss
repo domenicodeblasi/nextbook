@@ -99,7 +99,7 @@ body {
 
     button {
         position: absolute;
-        top: calc(100vh + 20px);
+        top: calc(100vh + (100vh - 98%));
         left: 20px;
         padding: 5px;
         font-size: 2.5em;

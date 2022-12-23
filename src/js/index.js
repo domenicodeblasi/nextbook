@@ -16,6 +16,10 @@ logoContainer.prepend(getLogo());
 
 // focus event on search-bar
 searchBar.addEventListener("focus", (e) => {
+    e.preventDefault();
+    e.target.focus({
+        preventScroll: true
+    })
     searchBar.style.outline = `2px solid ${blue}`;
 });
 searchBar.addEventListener("blur", () => {
