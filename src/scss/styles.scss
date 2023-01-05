@@ -14,7 +14,7 @@
 }
 
 body {
-    height: 300vh;
+    height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
@@ -35,11 +35,9 @@ body {
     min-width: 200px;
     height: 60%;
     min-height: 180px;
-    // background-color: pink;
 }
 
 .logo-container {
-    // background-color: greenyellow;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,7 +52,6 @@ body {
 }
 
 #form {
-    // background-color: lightcoral;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -95,17 +92,17 @@ body {
 }
 
 #search-results-section {
+    position: relative;
     height: 100vh;
+    width: inherit;
 
     button {
-        position: absolute;
-        top: calc(100vh + (100vh - 98%));
-        left: 20px;
-        padding: 5px;
+        background-color: inherit;
+        width: 50px;
+        height: 50px;
         font-size: 2.5em;
         font-family: inherit;
         color: $blue;
-        background-color: inherit;
         border: none;
         cursor: pointer;
         transition: transform ease 0.1s;
@@ -115,9 +112,47 @@ body {
             transition: transform ease 0.1s;
         }
     }
+
+    .results-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: inherit;
+        height: calc(100% - 115px);
+
+        .page {
+            width: inherit;
+            height: inherit;
+            background-color: red;
+        }
+
+        .index-container {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 0;
+            width: inherit;
+
+            .index {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 35px;
+                height: 35px;
+                margin: 15px;
+                cursor: pointer;
+            }
+
+            .selected {
+                background-color: $blue;
+                color: $light-color;
+                border-radius: 50%;
+            }
+        }
+    }
 }
 
 #book-section {
     height: 100vh;
-
 }
