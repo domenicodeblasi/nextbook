@@ -26,6 +26,7 @@ searchBar.addEventListener("focus", (e) => {
 });
 searchBar.addEventListener("blur", () => {
     searchBar.style.outline = "none";
+    window.scrollTo(0, 0);
 })
 
 // the placeholder changes every 3 seconds, to suggest new subjects to the user
@@ -37,6 +38,7 @@ setInterval(changePlaceholder, 3000);
 // fetch subject api in the "submit" event listener
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    window.scrollTo(0, 0);
     startLoading();                     // imported
     await subjectRequestAndDisplay();
     scrollToSearchResults();
