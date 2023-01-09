@@ -119,8 +119,6 @@ async function subjectRequestAndDisplay() {
     showResults();
 }
 
-console.log(document.documentElement.clientHeight)
-
 function scrollToSearchResults() {
     window.scrollTo({
         top: document.documentElement.clientHeight,
