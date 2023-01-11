@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+// const webpack = require("webpack");
 
 module.exports = {
     entry: {
@@ -11,6 +13,17 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.js$/i,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [['@babel/preset-env', { 'modules': false, 'targets': { 'node': 4 } }]],
+                        plugins: ["lodash"]
+                    }
+                }
+            },
             {
                 test: /\.(css|scss)$/i,
                 use: ["style-loader", "css-loader", "sass-loader"]
@@ -25,7 +38,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "./src/index.html",
             favicon: "./src/imgs/logo/logo.svg"
-        })
+        }),
+        new LodashModuleReplacementPlugin({
+            collections: true,
+            paths: true
+        }),
+        // new webpack.optimize.UglifyJsPlugin
     ],
     devServer: {
         port: 5000,

@@ -14,18 +14,17 @@
 }
 
 html {
-    height: -webkit-fill-available
+    height: -webkit-fill-available;
 }
 
 body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
     width: 100vw;
     overflow: hidden;
 }
 
 #home {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,6 +60,7 @@ body {
     flex-direction: column;
     width: 80%;
     max-width: 500px;
+    margin-top: 30px;
 
     .search-bar-label {
         font-weight: 400;
@@ -98,7 +98,8 @@ body {
 
 #search-results-section {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     width: inherit;
 
     button {
@@ -123,12 +124,33 @@ body {
         flex-direction: column;
         align-items: center;
         width: inherit;
-        height: calc(100% - 115px);
+        height: calc(100vh - 50px);
 
         .page {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            justify-content: space-between;
             width: inherit;
-            height: inherit;
-            background-color: red;
+            height: calc(100% - 65px);
+        }
+
+        .card {
+            padding: 20px;
+            // border: 2px solid blue;
+            height: 22%;
+
+            h2 {
+                font-family: inherit;
+                font-weight: 500;
+                font-size: 1.8em;
+            }
+
+            h4 {
+                font-family: inherit;
+                font-weight: 400;
+                font-size: 0.9em;
+            }
         }
 
         .index-container {
@@ -159,5 +181,6 @@ body {
 }
 
 #book-section {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }

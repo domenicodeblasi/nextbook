@@ -2,6 +2,7 @@ import "../scss/styles.scss";
 import getLogo from "../imgs/logo/logo.js";
 import {placeholderArray, randomPlaceholderIndex} from "./placeholderArray.js";
 import {startLoading, stopLoading} from "./loadingComponent/loading.js";
+import _ from "lodash";
 
 // DOM elements
 const logoContainer = document.querySelector(".logo-container");
@@ -10,6 +11,7 @@ const searchBar = document.querySelector(".search-bar");
 const searchResultsCloseBtn = document.querySelector("#search-results-section > button");
 const searchResultsContainer = document.querySelector(".results-container");
 const windowHeight = document.documentElement.clientHeight;
+let currentPage = 1;
 
 // colors
 const blue = "rgb(69, 68, 151)";
@@ -62,7 +64,6 @@ async function subjectRequestAndDisplay() {
     let numberOfPages = Math.ceil(arrayResults.length/4);
 
     function showResults() {
-        let currentPage = 1;
         const indexContainer = document.createElement("div");
         indexContainer.classList.add("index-container");
         searchResultsContainer.append(indexContainer);
@@ -95,9 +96,8 @@ async function subjectRequestAndDisplay() {
                 }) 
                 btn.classList.add("selected");
                 currentPage = btn.textContent;
-                console.log("current page: " + currentPage);
                 try {
-                    createResultsPage();
+                    displayResults();
                 } catch(err) {
                     alert(err.message);
                 }
@@ -105,23 +105,68 @@ async function subjectRequestAndDisplay() {
         }
 
         function createResultsPage() {
-            if (currentPage == 1) {
-                console.log("pagina 1");
-            } else if (currentPage == 2) {
-                console.log("pagina 2");
-            } else if (currentPage == 3) {
-                console.log("pagina 3");
-            } else {
-                throw new Error("an error occurred")
+            const page = document.createElement("div");
+            page.classList.add("page");
+            searchResultsContainer.prepend(page);
+        }
+
+        const arrayResultsChunks = _.chunk(arrayResults, 4);
+
+        function displayResults() {
+            const page = document.querySelector(".page");
+            page.innerHTML = "";
+            for (let i = 0; i < arrayResultsChunks[currentPage - 1].length; i++) {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `<h2>${arrayResultsChunks[currentPage - 1][i].title}</h2>`;
+
+                // let's create an array of authors for every book
+                const authors = arrayResultsChunks[currentPage - 1][i].authors;
+                const authorsArray = authors.map(author => author.name);
+                console.log(authorsArray)
+                card.innerHTML += `<h4>${authorsArray.join(", ")}</h4>`;
+
+                page.append(card);
             }
         }
+
+        try {
+            if (currentPage == 1) {
+                createResultsPage()
+                displayResults();
+            } else {
+                throw new Error("please refresh the page")
+            }
+        } catch(err) {
+            alert(`${err.name}: ${err.message}`);
+        }
+
+        // function displayResults() {
+        //     const
+        //     console.log(arrayResultsChunks[currentPage - 1]);
+        // }
+
+        // function createResultsPage() {
+        //     if (currentPage == 1) {
+        //         console.log("pagina 1");
+        //         const resultsPage = document.createElement("div");
+        //         resultsPage.classList.add("page");
+        //         searchResultsContainer.prepend(resultsPage);
+        //     } else if (currentPage == 2) {
+        //         console.log("pagina 2");
+        //     } else if (currentPage == 3) {
+        //         console.log("pagina 3");
+        //     } else {
+        //         throw new Error("an error occurred")
+        //     }
+        // }
     }
     showResults();
 }
 
 function scrollToSearchResults() {
     window.scrollTo({
-        top: document.documentElement.clientHeight,
+        top: windowHeight,
         behavior: "smooth"
     });
 }
@@ -130,6 +175,7 @@ function scrollToSearchResults() {
 searchResultsCloseBtn.addEventListener("click", (e) => {
     searchBar.value = "";
     searchResultsContainer.innerHTML = "";
+    currentPage = 1;
     window.scrollTo({
         top: 0,
         behavior: "smooth"
