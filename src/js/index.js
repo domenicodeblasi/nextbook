@@ -123,7 +123,6 @@ async function subjectRequestAndDisplay() {
                 // let's create an array of authors for every book
                 const authors = arrayResultsChunks[currentPage - 1][i].authors;
                 const authorsArray = authors.map(author => author.name);
-                console.log(authorsArray)
                 card.innerHTML += `<h4>${authorsArray.join(", ")}</h4>`;
 
                 page.append(card);
@@ -140,26 +139,6 @@ async function subjectRequestAndDisplay() {
         } catch(err) {
             alert(`${err.name}: ${err.message}`);
         }
-
-        // function displayResults() {
-        //     const
-        //     console.log(arrayResultsChunks[currentPage - 1]);
-        // }
-
-        // function createResultsPage() {
-        //     if (currentPage == 1) {
-        //         console.log("pagina 1");
-        //         const resultsPage = document.createElement("div");
-        //         resultsPage.classList.add("page");
-        //         searchResultsContainer.prepend(resultsPage);
-        //     } else if (currentPage == 2) {
-        //         console.log("pagina 2");
-        //     } else if (currentPage == 3) {
-        //         console.log("pagina 3");
-        //     } else {
-        //         throw new Error("an error occurred")
-        //     }
-        // }
     }
     showResults();
 }
