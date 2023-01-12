@@ -10,8 +10,17 @@ const form = document.querySelector("#form");
 const searchBar = document.querySelector(".search-bar");
 const searchResultsCloseBtn = document.querySelector("#search-results-section > button");
 const searchResultsContainer = document.querySelector(".results-container");
-const windowHeight = document.documentElement.clientHeight;
+const windowHeight = window.innerHeight;
 let currentPage = 1;
+
+// let's set the height of the window (because 100vh gives many problems with mobile layout)
+const setDocumentHeight = () => {
+    document.documentElement.style.setProperty("--height", `${window.innerHeight}px`);
+}
+window.addEventListener("resize", () => {
+    setDocumentHeight();
+});
+setDocumentHeight();
 
 // colors
 const blue = "rgb(69, 68, 151)";

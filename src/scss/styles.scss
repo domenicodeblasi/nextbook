@@ -11,6 +11,7 @@
     color: $dark-color;
     font-family: $font;
     font-size: 14px;
+    --height: 100%;
 }
 
 body {
@@ -19,9 +20,7 @@ body {
 }
 
 #home {
-    height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
+    height: var(--height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,9 +94,7 @@ body {
 
 #search-results-section {
     position: relative;
-    height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
+    height: var(--height);
     width: inherit;
 
     button {
@@ -124,37 +121,38 @@ body {
     flex-direction: column;
     align-items: center;
     width: inherit;
-    height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
+    height: var(--height);
 }
 
 .page {
     display: flex;
+    height: var(--height);
     flex-direction: column;
     padding: 50px 50px 65px 50px;
     justify-content: space-between;
     width: inherit;
-    height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
 }
 
 .card {
-    padding: 20px;
-    // border: 2px solid blue;
+    padding: 10px 20px;
+    background-color: $text-input-color;
+    border-radius: 10px;
     height: 22%;
+    overflow: hidden;
+    cursor: pointer;
 
     h2 {
         font-family: inherit;
         font-weight: 500;
         font-size: 1.8em;
+        color: $blue;
     }
 
     h4 {
         font-family: inherit;
         font-weight: 400;
         font-size: 0.9em;
+        color: $dark-color;
     }
 }
 
@@ -164,7 +162,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 0;
     width: inherit;
 
     .index {
@@ -185,7 +182,14 @@ body {
 }
 
 #book-section {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
+    height: var(--height);
+}
+
+@media screen and (max-width: 600px) {
+    .card h2 {
+        font-size: 1.2em;
+    }
+    .card h4 {
+        font-size: 0.8em;
+    }
 }
