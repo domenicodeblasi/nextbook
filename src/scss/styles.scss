@@ -23,8 +23,8 @@ body {
 }
 
 #home {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100vh;
+    height: -webkit-fill-available;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,11 +98,12 @@ body {
 
 #search-results-section {
     position: relative;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100vh;
+    height: -webkit-fill-available;
     width: inherit;
 
     button {
+        position: absolute;
         background-color: inherit;
         width: 50px;
         height: 50px;
@@ -118,65 +119,68 @@ body {
             transition: transform ease 0.1s;
         }
     }
+}
 
-    .results-container {
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: inherit;
+    height: 100vh;
+    height: -webkit-fill-available;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 50px 65px 50px;
+    justify-content: space-between;
+    width: inherit;
+    height: 100vh;
+    height: -webkit-fill-available;
+}
+
+.card {
+    padding: 20px;
+    // border: 2px solid blue;
+    height: 22%;
+
+    h2 {
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 1.8em;
+    }
+
+    h4 {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 0.9em;
+    }
+}
+
+.index-container {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    width: inherit;
+
+    .index {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        width: inherit;
-        height: calc(100vh - 50px);
+        width: 35px;
+        height: 35px;
+        margin: 15px;
+        cursor: pointer;
+    }
 
-        .page {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            justify-content: space-between;
-            width: inherit;
-            height: calc(100% - 65px);
-        }
-
-        .card {
-            padding: 20px;
-            // border: 2px solid blue;
-            height: 22%;
-
-            h2 {
-                font-family: inherit;
-                font-weight: 500;
-                font-size: 1.8em;
-            }
-
-            h4 {
-                font-family: inherit;
-                font-weight: 400;
-                font-size: 0.9em;
-            }
-        }
-
-        .index-container {
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            bottom: 0;
-            width: inherit;
-
-            .index {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 35px;
-                height: 35px;
-                margin: 15px;
-                cursor: pointer;
-            }
-
-            .selected {
-                background-color: $blue;
-                color: $light-color;
-                border-radius: 50%;
-            }
-        }
+    .selected {
+        background-color: $blue;
+        color: $light-color;
+        border-radius: 50%;
     }
 }
 
