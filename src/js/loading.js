@@ -1,12 +1,12 @@
-import "./loading.scss";
+import "../scss/loading.scss";
 
-function startLoading() {
+function formStartLoading() {
     const loader = document.createElement("div");
     loader.classList.add("loader");
     form.lastElementChild.replaceWith(loader);
 }
 
-function stopLoading() {
+function formStopLoading() {
     const btn = document.createElement("button");
     btn.classList.add("submit-btn");
     btn.type = "submit";
@@ -14,4 +14,4 @@ function stopLoading() {
     btn.innerHTML = "Search";
 }
 
-export {startLoading, stopLoading}
+export {formStartLoading, formStopLoading}
