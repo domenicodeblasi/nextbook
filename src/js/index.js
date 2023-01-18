@@ -12,10 +12,9 @@ const form = document.querySelector("#form");
 const searchBar = document.querySelector(".search-bar");
 const searchResultsCloseBtn = document.querySelector("#search-results-section > button");
 const searchResultsContainer = document.querySelector(".results-container");
-const bookSection = document.querySelector("#book-section");
 const bookContainer = document.querySelector(".book-container");
 const bookSectionCloseBtn = document.querySelector("#book-section > button");
-const windowHeight = window.innerHeight;
+let windowHeight = window.innerHeight;
 let arrayResults;
 let numberOfPages;
 let indexContainer;
@@ -31,14 +30,11 @@ let bookKey;
 let bookJson;
 let bookObject;
 
-// let's set the height of the window (because 100vh gives many problems with mobile layout)
-const setDocumentHeight = () => {
-    document.documentElement.style.setProperty("--height", `${window.innerHeight}px`);
-}
+// let's set the height of the window on resize event
 window.addEventListener("resize", () => {
-    setDocumentHeight();
+    windowHeight = window.innerHeight;
 });
-setDocumentHeight();
+
 
 // colors
 const blue = "rgb(69, 68, 151)";

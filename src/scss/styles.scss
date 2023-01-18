@@ -11,16 +11,15 @@
     color: $dark-color;
     font-family: $font;
     font-size: 14px;
-    --height: 100%;
 }
 
 body {
-    width: 100vw;
+    width: 100dvw;
     overflow: hidden;
 }
 
 #home {
-    height: var(--height);
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,7 +93,7 @@ body {
 
 #search-results-section {
     position: relative;
-    height: var(--height);
+    height: 100dvh;
     width: inherit;
 }
 
@@ -122,12 +121,12 @@ body {
     flex-direction: column;
     align-items: center;
     width: inherit;
-    height: var(--height);
+    height: 100dvh;
 }
 
 .page {
     display: flex;
-    height: var(--height);
+    height: 100dvh;
     flex-direction: column;
     padding: 50px 50px 65px 50px;
     justify-content: space-between;
@@ -190,7 +189,7 @@ body {
 }
 
 #book-section {
-    min-height: var(--height);
+    min-height: 100dvh;
 }
 
 .book-container {
@@ -198,7 +197,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: inherit;
-    height: var(--height);
+    height: 100dvh;
     padding: 50px 50px 65px 50px;
     overflow-y: scroll;
     overflow-x: hidden;
