@@ -29,6 +29,7 @@ let authors;
 let authorsArray;
 let bookKey;
 let bookJson;
+let bookObject;
 
 // let's set the height of the window (because 100vh gives many problems with mobile layout)
 const setDocumentHeight = () => {
@@ -88,7 +89,8 @@ async function getAndDisplayBook() {
             await scrollToBookSection();          
             await getBookJson();
             console.log(bookJson);
-            // await displayBook();
+            await createBookObject()
+            await displayBook();
         }
     }, true);
 }
@@ -221,10 +223,122 @@ async function scrollToBookSection() {
 async function getBookJson() {
     const key = card.lastElementChild.textContent;
     const URL = `https://openlibrary.org${key}.json`;
-    console.log(URL);
     const response = await fetch(URL);
     bookJson = await response.json();
-    // console.log(bookJson);
+}
+
+async function createBookObject() {
+    class Book {
+        get title() {
+            return bookJson.title;
+        }
+        get description() {
+            if (typeof bookJson.description == "object") {
+                return bookJson.description.value;
+            } else {
+                return bookJson.description;
+            }
+        }
+        get arrayCoverURL() {
+            let array = [];
+            if (bookJson.covers.length > 1) {
+                for (let i = 0; i < 2; i++) {
+                    let randomIndex = Math.floor(Math.random() * (bookJson.covers.length - 1));
+                    let coverKey = bookJson.covers[randomIndex];
+                    if (coverKey == -1) {
+                        coverKey = bookJson.covers[randomIndex + 1];
+                    }
+                    const URL = `https://covers.openlibrary.org/b/id/${coverKey}-M.jpg`;
+                    array.push(URL);
+                }
+                console.log(array)
+            } else if (bookJson.covers.length == 1) {
+                const coverKey = bookJson.covers[0];
+                const URL = `https://covers.openlibrary.org/b/id/${coverKey}-M.jpg`;
+                array.push(URL);
+            } else {
+                array = [];
+            }
+            return array;
+        }
+    }
+    bookObject = new Book();
+}
+
+async function displayBook() {
+    
+    // cover container
+    const coverContainer = document.createElement("div");
+    coverContainer.classList.add("cover-container");
+    bookContainer.append(coverContainer);
+
+    // console.log(bookObject.arrayCoverURL);
+
+    if (bookObject.arrayCoverURL.length == 2) {
+
+        // carousel btn
+        const button = document.createElement("button");
+        button.classList.add("carousel-btn");
+        button.textContent = ">";
+        coverContainer.append(button);
+    
+        // cover 1
+        const cover1 = document.createElement("img");
+        cover1.classList.add("cover");
+        cover1.style.animation = "none";
+        cover1.setAttribute("src", bookObject.arrayCoverURL[0]);
+        coverContainer.append(cover1);
+
+        // cover 2
+        const cover2 = document.createElement("img");
+        cover2.classList.add("cover", "hidden");
+        cover2.setAttribute("src", bookObject.arrayCoverURL[1]);
+        coverContainer.append(cover2);
+
+        button.addEventListener("click", () => {
+            if (cover2.classList.contains("hidden")) {
+                cover1.classList.add("hidden");
+                cover1.style.animation = "slide-out ease 0.5s"
+                cover2.classList.remove("hidden");
+                cover2.style.animation = "slide-in ease 0.5s"
+            } else if (cover1.classList.contains("hidden")) {
+                cover2.classList.add("hidden");
+                cover2.style.animation = "slide-out ease 0.5s"
+                cover1.classList.remove("hidden");
+                cover1.style.animation = "slide-in ease 0.5s"
+            }
+        })
+
+    } else if (bookObject.arrayCoverURL.length == 1) {
+        
+        // cover 1
+        const cover = document.createElement("img");
+        cover.classList.add("cover");
+        cover.setAttribute("src", bookObject.arrayCoverURL[0]);
+        coverContainer.append(cover);
+
+    } else {
+
+        const noCover = document.createElement("div");
+        noCover.classList.add("no-cover")
+        noCover.textContent = "book cover not available";
+        coverContainer.append(noCover);
+
+    }
+    
+    // title
+    const title = document.createElement("h1");
+    title.classList.add("title")
+    title.innerHTML = `${bookObject.title}`;
+    bookContainer.append(title);
+
+    // description
+    const description = document.createElement("p");
+    description.classList.add("description");
+    description.innerHTML = `${bookObject.description}`
+    bookContainer.append(description);
+    console.log(bookObject.description);
+
 }
 
 bookSectionCloseBtn.addEventListener("click", () => {
