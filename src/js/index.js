@@ -84,7 +84,6 @@ async function getAndDisplayBook() {
         if (e.target == card || e.target == h2 || e.target == h4) {
             await scrollToBookSection();          
             await getBookJson();
-            console.log(bookJson);
             await createBookObject()
             await displayBook();
         }
@@ -131,6 +130,7 @@ async function setBtns() {
         }
     } catch(err) {
         alert(err.message);
+        location.reload()
     }
 
     // let's change the selection between btns, the possibility to switch from one to another one
@@ -231,27 +231,30 @@ async function createBookObject() {
         get description() {
             if (typeof bookJson.description == "object") {
                 return bookJson.description.value;
+            } else if (typeof bookJson.description == "undefined") {
+                return "No description available"
             } else {
                 return bookJson.description;
             }
         }
         get arrayCoverURL() {
             let array = [];
-            if (bookJson.covers.length > 1) {
-                for (let i = 0; i < 2; i++) {
-                    let randomIndex = Math.floor(Math.random() * (bookJson.covers.length - 1));
-                    let coverKey = bookJson.covers[randomIndex];
-                    if (coverKey == -1) {
-                        coverKey = bookJson.covers[randomIndex + 1];
+            if (bookJson.covers) {
+                if (bookJson.covers.length > 1) {
+                    for (let i = 0; i < 2; i++) {
+                        let randomIndex = Math.floor(Math.random() * (bookJson.covers.length - 1));
+                        let coverKey = bookJson.covers[randomIndex];
+                        if (coverKey == -1) {
+                            coverKey = bookJson.covers[randomIndex + 1];
+                        }
+                        const URL = `https://covers.openlibrary.org/b/id/${coverKey}-M.jpg`;
+                        array.push(URL);
                     }
+                } else if (bookJson.covers.length == 1) {
+                    const coverKey = bookJson.covers[0];
                     const URL = `https://covers.openlibrary.org/b/id/${coverKey}-M.jpg`;
                     array.push(URL);
                 }
-                console.log(array)
-            } else if (bookJson.covers.length == 1) {
-                const coverKey = bookJson.covers[0];
-                const URL = `https://covers.openlibrary.org/b/id/${coverKey}-M.jpg`;
-                array.push(URL);
             } else {
                 array = [];
             }
@@ -262,16 +265,12 @@ async function createBookObject() {
 }
 
 async function displayBook() {
-    
     // cover container
     const coverContainer = document.createElement("div");
     coverContainer.classList.add("cover-container");
     bookContainer.append(coverContainer);
 
-    // console.log(bookObject.arrayCoverURL);
-
     if (bookObject.arrayCoverURL.length == 2) {
-
         // carousel btn
         const button = document.createElement("button");
         button.classList.add("carousel-btn");
@@ -306,7 +305,6 @@ async function displayBook() {
         })
 
     } else if (bookObject.arrayCoverURL.length == 1) {
-        
         // cover 1
         const cover = document.createElement("img");
         cover.classList.add("cover");
@@ -314,7 +312,6 @@ async function displayBook() {
         coverContainer.append(cover);
 
     } else {
-
         const noCover = document.createElement("div");
         noCover.classList.add("no-cover")
         noCover.textContent = "book cover not available";
@@ -333,8 +330,6 @@ async function displayBook() {
     description.classList.add("description");
     description.innerHTML = `${bookObject.description}`
     bookContainer.append(description);
-    console.log(bookObject.description);
-
 }
 
 bookSectionCloseBtn.addEventListener("click", () => {
